@@ -60,28 +60,30 @@ export default {
       ]
     })
 
-    return {
-      ...toRefs(state)
-    }
-  },
-  methods: {
-    registerSelection(gameId) {
-      this.activeScreen = gameId
-    },
-    restartGame() {
-      this.miniGames.forEach(miniGame => {
+    const registerSelection = gameId => (state.activeScreen = gameId)
+
+    const restartGame = () => {
+      state.miniGames.forEach(miniGame => {
         miniGame.complete = false
       })
 
-      this.activeScreen = 'Not Started'
-    },
-    startGame() {
-      this.activeScreen = 'Home'
-    },
-    updateMiniGame(id) {
+      state.activeScreen = 'Not Started'
+    }
+
+    const startGame = () => (state.activeScreen = 'Home')
+
+    const updateMiniGame = id => {
       const miniGame = this.miniGames.find(miniGame => miniGame.id === id)
 
       miniGame.complete = true
+    }
+
+    return {
+      ...toRefs(state),
+      registerSelection,
+      restartGame,
+      startGame,
+      updateMiniGame
     }
   },
   watch: {
