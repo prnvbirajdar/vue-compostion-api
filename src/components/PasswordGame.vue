@@ -1,14 +1,18 @@
 <script>
+import { reactive, toRefs } from '@vue/reactivity'
 import { PASSWORD_STATUS } from '../constants'
 
 export default {
-  data() {
-    return {
+  setup() {
+    const state = reactive({
       status: 'In Progress',
       passwordInput: '',
       correctPassword: 0
-    }
+    })
+
+    return { ...toRefs(state) }
   },
+
   computed: {
     gameStatus() {
       if (this.status === PASSWORD_STATUS.FAIL) {
