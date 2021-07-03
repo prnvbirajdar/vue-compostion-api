@@ -31,21 +31,21 @@ export default {
       })
     })
 
-    return {
-      ...toRefs(state)
-    }
-  },
-  methods: {
-    checkPassword() {
-      if (this.correctPassword === this.passwordInput) {
-        this.status = PASSWORD_STATUS.PASS
-        this.$emit('mini-game-won', 'password-game')
+    const checkPassword = () => {
+      if (state.correctPassword === state.passwordInput) {
+        state.status = PASSWORD_STATUS.PASS
+        state.$emit('mini-game-won', 'password-game')
       } else {
-        this.status = PASSWORD_STATUS.FAIL
+        state.status = PASSWORD_STATUS.FAIL
       }
-    },
-    generateNewPassword() {
-      return Math.floor(Math.random() * 1000000 + 1000).toString()
+    }
+    const generateNewPassword = () =>
+      Math.floor(Math.random() * 1000000 + 1000).toString()
+
+    return {
+      ...toRefs(state),
+      checkPassword,
+      generateNewPassword
     }
   },
   mounted() {
